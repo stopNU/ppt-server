@@ -1,10 +1,10 @@
 const User = require("../models/user");
 const jwt = require("jsonwebtoken");
-const config = require("../config");
+//const config = require("../config");
 
 function tokenForUser(user) {
   const timestamp = new Date().getTime();
-  return jwt.sign({ sub: user.id, iat: timestamp }, config.secret);
+  return jwt.sign({ sub: user.id, iat: timestamp }, process.env.SECRET);
 }
 
 exports.signin = function (req, res, next) {

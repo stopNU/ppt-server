@@ -1,16 +1,16 @@
+require('dotenv').config()
 const express = require("express");
 const http = require("http");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
 const router = require("./router");
 const mongoose = require("mongoose");
-const config = require("./config");
-//import mongoose from "mongoose";
+//const config = require("./config");
 
 const app = express();
 
 // DB setup
-mongoose.connect(config.mongoConnect);
+mongoose.connect(process.env.MONGO_CONNECT_URL);
 
 // app setup
 app.use(morgan("combined"));
