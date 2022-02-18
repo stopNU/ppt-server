@@ -1,5 +1,6 @@
-require('dotenv').config()
+require("dotenv").config();
 const express = require("express");
+var cors = require("cors");
 const http = require("http");
 const bodyParser = require("body-parser");
 const morgan = require("morgan");
@@ -8,6 +9,7 @@ const mongoose = require("mongoose");
 //const config = require("./config");
 
 const app = express();
+app.use(cors());
 
 // DB setup
 mongoose.connect(process.env.MONGO_CONNECT_URL);
