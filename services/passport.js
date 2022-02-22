@@ -27,8 +27,7 @@ const localLogin = new LocalStrategy(localOptions, function (
       if (!isMatch) {
         return done(null, false);
       }
-
-      return done(null, true);
+      return done(null, user);
     });
   });
 });
@@ -41,19 +40,17 @@ const jwtOptions = {
 
 // Create JWT strategy
 const jwtLogin = new JwtStrategy(jwtOptions, function (payload, done) {
-  User.findById(payload.sub, function (err, user) {
+  User.findOne({id: payload.sub}, function(err, user) {
     if (err) {
-      // Failed to search
-      return done(err, false);
+        return done(err, false);
     }
-
     if (user) {
-      done(null, user);
+        return done(null, user);
     } else {
-      // Did not find user
-      done(null, false);
+        return done(null, false);
+        // or you could create a new account
     }
-  });
+});
 });
 
 // Tell passport to use strategy
